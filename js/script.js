@@ -1,24 +1,13 @@
+import {colors} from './colors.js';
+import {words} from './words.js';
+
 const lettersContainer = document.querySelector('.letters'),
     audioClick = new Audio("audio/click.mp3"),
     audioWin = new Audio("audio/win.mp3");
 let originalWord,
-    words,
-    colors,
     word;
 
-async function fetchData(path) {
-    try {
-        const response = await fetch(path);
-        return response.json();
-    } catch (error) {
-        console.error('Помилка при завантаженні файлу');
-        return null;
-    }
-}
-
 async function startGame() {
-    words = await fetchData('../words.json');
-    colors = await fetchData('../colors.json');
     if (words !== null) {
         word = getRandomWord(words).toUpperCase()
         originalWord = word; // Зберігаємо початкове слово
