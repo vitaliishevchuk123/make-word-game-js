@@ -17,8 +17,8 @@ async function fetchData(path) {
 }
 
 async function startGame() {
-    words = await fetchData('../storage/words.json');
-    colors = await fetchData('../storage/colors.json');
+    words = await fetchData('https://github.com/vitaliishevchuk123/make-word-game-js/blob/master/storage/words.json');
+    colors = await fetchData('https://github.com/vitaliishevchuk123/make-word-game-js/blob/master/storage/colors.json');
     if (words !== null) {
         word = getRandomWord(words).toUpperCase()
         originalWord = word; // Зберігаємо початкове слово
