@@ -1,4 +1,5 @@
 import GameTimer from './GameTimer.js';
+import HintBox from './HintBox.js';
 import Modal from './Modal.js';
 import GuessedWords from './GuessedWords.js';
 
@@ -7,13 +8,16 @@ class Game {
         this.words = words;
         this.colors = colors;
         this.gameTimer = new GameTimer();
+        this.hintBox = new HintBox(this.gameTimer);
         this.modal = new Modal(this.gameTimer);
         this.guessedWords = new GuessedWords();
         this.lettersContainer = document.querySelector('.letters');
         this.resetGame = document.querySelector('#reset-game');
         this.audioClick = new Audio("audio/click.mp3");
         this.audioWin = new Audio("audio/win.mp3");
-        this.originalWord = '';
+        this.selectedWord = '';
+        this.selectedWordHint = '';
+        this.hintButton = document.getElementById('show-hint');
     }
 
     start() {
@@ -24,10 +28,7 @@ class Game {
 
     startGame() {
         if (this.words !== null) {
-            this.word = this.getRandomWord(this.words).toUpperCase();
-            this.originalWord = this.word; // Зберігаємо початкове слово
-            const letters = this.shuffleArray(this.word.split(''));
-            this.drawLetters(letters, this.colors);
+            this.playNextWord()
             this.addListeners();
         }
     }
@@ -64,6 +65,10 @@ class Game {
     }
 
     addListeners() {
+        this.hintButton.addEventListener('click', (event) => {
+            this.hintBox.showHint(this.selectedWordHint);
+        });
+
         this.lettersContainer.addEventListener('click', (event) => {
             this.audioClick.play();
             const target = event.target;
@@ -79,10 +84,7 @@ class Game {
                     target.textContent = temp;
                 }
 
-                //hints
-                console.log(this.lettersContainer.textContent.trim(), this.originalWord)
-
-                if (this.lettersContainer.textContent.trim() === this.originalWord) {
+                if (this.lettersContainer.textContent.trim() === this.selectedWord) {
                     this.wordGuessed();
                     this.playNextWord();
                 }
@@ -96,15 +98,16 @@ class Game {
 
     wordGuessed() {
         this.audioWin.play();
-        this.modal.showModal(`Вітаю! Ви відгадали слово: ${this.originalWord}`, true);
+        this.modal.showModal(`Вітаю! Ви відгадали слово: ${this.selectedWord}`, true);
         this.guessedWords.increaseGuessedWordsCount();
     }
 
     playNextWord() {
         this.lettersContainer.innerHTML = '';
-        this.word = this.getRandomWord(this.words).toUpperCase();
-        this.originalWord = this.word;
-        const letters = this.shuffleArray(this.word.split(''));
+        let wordObj = this.getRandomWord(this.words);
+        this.selectedWord = wordObj.word.toUpperCase();
+        this.selectedWordHint = wordObj.hint;
+        const letters = this.shuffleArray(this.selectedWord.split(''));
         this.drawLetters(letters, this.colors);
     }
 

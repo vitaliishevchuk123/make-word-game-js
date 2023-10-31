@@ -49,6 +49,10 @@
   top: 0;
 }
 
+.hint-box__text {
+  color: white;
+}
+
 .modal-content {
   width: 80%;
 }
@@ -631,10 +635,10 @@ body {
     font-size: 24px;
   }
   .icons-box__info {
-    width: 70%;
+    width: 60%;
   }
   .icons-box__control {
-    width: 30%;
+    width: 40%;
   }
 }
 
