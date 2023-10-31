@@ -7,14 +7,67 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Make a word game</title>
 	<link rel="stylesheet" href="css/style.css">
+	<script src="https://kit.fontawesome.com/c25dc9612f.js" crossorigin="anonymous"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
+	<link rel="apple-touch-icon" sizes="57x57" href="icons/favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="icons/favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="icons/favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="icons/favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="icons/favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="icons/favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="icons/favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="icons/favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="icons/favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="icons/favicon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="icons/favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon/favicon-16x16.png">
+	<link rel="manifest" href="icons/favicon/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="icons/favicon/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
 </head>
 <body>
-	<main class="main">
-		<div class="container">
-			<div class="letters">
+<main class="main">
+	<div class="container">
+		<div class="icons-box">
+			<div class="icons-box__info icons">
+				<div class="icons-box__item icons__text">
+					<div class="icons__item">
+						<i class="fa-solid fa-star"></i>
+					</div>
+					<span id="scoreNumber">50</span>
+				</div>
+				<div class="icons__text">
+					<div class="icons__item">
+						<i class="fa-regular fa-clock"></i>
+					</div>
+					<span id="game-timer">01:25</span>
+				</div>
+
+			</div>
+			<div class="icons-box__control icons">
+				<div class="icons-box__item icons__item">
+					<i class="fa-solid fa-rotate-right"></i>
+				</div>
 			</div>
 		</div>
-	</main>
+		<div class="letters">
+		</div>
+	</div>
+</main>
+<section class="modal hidden">
+	<div class="modal-content">
+		<img src="icons/lion.svg" alt="Lion" class="modal-content__img">
+		<span class="close" id="closeModal">
+			<i class="fa-regular fa-circle-xmark"></i>
+		</span>
+		<div id="modalText" class="modal-content__text"></div>
+	</div>
+</section>
+<script src="js/libs/confetti.js"></script>
 <script type="module" src="js/script.js"></script>
 </body>
 </html>

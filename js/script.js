@@ -1,5 +1,14 @@
-import {colors} from './colors.js';
-import {words} from './words.js';
+import {colors} from './components/colors.js';
+import {words} from './components/words.js';
+import GameTimer from './components/GameTimer.js';
+import Modal from './components/Modal.js';
+
+// Використовуємо клас GameTimer
+const gameTimer = new GameTimer(); // Створюємо екземпляр класу
+const modal = new Modal();
+
+// Початок гри
+gameTimer.start();
 
 const lettersContainer = document.querySelector('.letters'),
     audioClick = new Audio("audio/click.mp3"),
@@ -67,7 +76,7 @@ function addListeners() {
                 // Слово збіглось, виконуємо відповідні дії
                 audioWin.play()
                 console.log('Слово збіглось з початковим словом:', originalWord);
-                alert(`Вітаю! Ви відгадали слово: ${originalWord}`);
+                modal.showModal(`Вітаю! Ви відгадали слово: ${originalWord}`, true);
                 resetGame();
             }
         }
