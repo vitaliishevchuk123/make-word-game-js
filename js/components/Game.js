@@ -1,13 +1,16 @@
 import GameTimer from './GameTimer.js';
 import Modal from './Modal.js';
+import GuessedWords from './GuessedWords.js';
 
 class Game {
     constructor(words, colors) {
         this.words = words;
         this.colors = colors;
         this.gameTimer = new GameTimer();
-        this.modal = new Modal();
+        this.modal = new Modal(this.gameTimer);
+        this.guessedWords = new GuessedWords();
         this.lettersContainer = document.querySelector('.letters');
+        this.resetGame = document.querySelector('#reset-game');
         this.audioClick = new Audio("audio/click.mp3");
         this.audioWin = new Audio("audio/win.mp3");
         this.originalWord = '';
@@ -46,10 +49,17 @@ class Game {
     }
 
     shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
+        let currentIndex = array.length, randomIndex;
+
+        while (currentIndex > 0) {
+
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
         }
+
         return array;
     }
 
@@ -68,23 +78,44 @@ class Game {
                     leftLetter.textContent = target.textContent;
                     target.textContent = temp;
                 }
+
+                //hints
                 console.log(this.lettersContainer.textContent.trim(), this.originalWord)
+
                 if (this.lettersContainer.textContent.trim() === this.originalWord) {
-                    this.audioWin.play();
-                    this.modal.showModal(`Вітаю! Ви відгадали слово: ${this.originalWord}`, true);
-                    this.resetGame();
+                    this.wordGuessed();
+                    this.playNextWord();
                 }
+
+                this.resetGame.addEventListener('click', () => {
+                    this.startOver();
+                });
             }
         });
     }
 
-    resetGame() {
+    wordGuessed() {
+        this.audioWin.play();
+        this.modal.showModal(`Вітаю! Ви відгадали слово: ${this.originalWord}`, true);
+        this.guessedWords.increaseGuessedWordsCount();
+    }
+
+    playNextWord() {
         this.lettersContainer.innerHTML = '';
         this.word = this.getRandomWord(this.words).toUpperCase();
         this.originalWord = this.word;
         const letters = this.shuffleArray(this.word.split(''));
         this.drawLetters(letters, this.colors);
     }
+
+    startOver() {
+        this.lettersContainer.innerHTML = '';
+        this.guessedWords.resetCounter();
+        this.gameTimer.reset();
+        this.playNextWord();
+    }
+
+
 }
 
 export default Game

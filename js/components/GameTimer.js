@@ -14,6 +14,11 @@ class GameTimer {
         }
     }
 
+    reset() {
+        this.stop()
+        this.start()
+    }
+
     pause() {
         this.isPaused = true;
     }
@@ -27,6 +32,7 @@ class GameTimer {
             clearInterval(this.timerInterval);
             this.timerInterval = null;
         }
+        this.gameDuration = 0;
     }
 
     updateGameTimer() {
