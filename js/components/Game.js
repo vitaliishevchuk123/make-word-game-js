@@ -79,10 +79,7 @@ class Game {
                 const index = Array.from(letters).indexOf(target);
 
                 if (index > 0) {
-                    const leftLetter = letters[index - 1];
-                    const temp = leftLetter.textContent;
-                    leftLetter.textContent = target.textContent;
-                    target.textContent = temp;
+                    target.previousElementSibling.before(target);
                 }
 
                 if (this.lettersContainer.textContent.trim() === this.selectedWord) {
