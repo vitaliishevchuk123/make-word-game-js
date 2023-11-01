@@ -1,5 +1,6 @@
 class Modal {
     constructor(gameTimer) {
+        this.type = 'guessedModal';
         this.gameTimer = gameTimer;
         this.modal = document.querySelector('.modal');
         this.closeModalButton = document.querySelector('#closeModal');
@@ -26,10 +27,9 @@ class Modal {
         });
     }
 
-    showModal(message, withConfetti = false) {
-        if (withConfetti) {
-            startConfetti();
-        }
+    showModal(message, type = 'guessedModal') {
+        this.type = type;
+        startConfetti();
         this.gameTimer.pause()
         this.modalText.textContent = message ?? this.modalTextDefault;
         this.modal.classList.remove('hidden');
@@ -40,6 +40,12 @@ class Modal {
         this.gameTimer.resume()
         this.modal.classList.add('hidden');
         this.modalText.textContent = '';
+        this.sendModalClosedEvent();
+    }
+
+    sendModalClosedEvent() {
+        const modalClosedEvent = new Event(`${this.type}Closed`);
+        window.dispatchEvent(modalClosedEvent);
     }
 }
 
