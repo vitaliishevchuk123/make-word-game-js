@@ -6,6 +6,8 @@ class Modal {
         this.closeModalButton = document.querySelector('#closeModal');
         this.modalText = document.querySelector('#modalText');
         this.modalTextDefault = 'Вітаю! Ти відгадав слово';
+        this.audioGuessed = new Audio("audio/win.mp3");
+        this.audioWin = new Audio("audio/success-fanfare.mp3");
         this.addEventListeners()
     }
 
@@ -30,6 +32,11 @@ class Modal {
     showModal(message, type = 'guessedModal') {
         this.type = type;
         startConfetti();
+        if (this.type === 'guessedModal') {
+            this.audioGuessed.play();
+        } else {
+            this.audioWin.play();
+        }
         this.gameTimer.pause()
         this.modalText.textContent = message ?? this.modalTextDefault;
         this.modal.classList.remove('hidden');

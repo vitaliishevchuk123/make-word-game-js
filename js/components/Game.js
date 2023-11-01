@@ -14,20 +14,20 @@ class Game {
         this.guessedWords = new GuessedWords();
         this.lettersContainer = document.querySelector('.letters');
         this.resetGame = document.querySelector('#reset-game');
+        this.audioGameStart = new Audio("audio/game-start.mp3");
         this.audioClick = new Audio("audio/click.mp3");
-        this.audioWin = new Audio("audio/win.mp3");
         this.selectedWord = '';
         this.selectedWordHint = '';
         this.hintButton = document.getElementById('show-hint');
     }
 
     start() {
-        this.gameTimer.start();
-
-        if (this.words !== null) {
-            this.playNextWord()
+        setTimeout(() => {
+            this.audioGameStart.play();
+            this.gameTimer.start();
+            this.playNextWord();
             this.addListeners();
-        }
+            }, 500);
     }
 
     spliceRandomWord() {
@@ -105,7 +105,6 @@ class Game {
     }
 
     wordGuessed() {
-        this.audioWin.play();
         this.modal.showModal(`Вітаю! Ви відгадали слово: ${this.selectedWord}`);
         this.guessedWords.increaseGuessedWordsCount();
     }
@@ -121,11 +120,12 @@ class Game {
         } else {
             setTimeout(() => {
                 this.modal.showModal('Ви вгадали всі слова! Гра завершена', 'finishedModal');
-            }, 1000);
+            }, 500);
         }
     }
 
     startOver() {
+        this.audioGameStart.play()
         this.lettersContainer.innerHTML = '';
         this.guessedWords.resetCounter();
         this.gameTimer.reset();
