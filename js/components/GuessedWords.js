@@ -1,5 +1,6 @@
 class GuessedWords {
-    constructor() {
+    constructor(wordsCount) {
+        this.wordsCount = wordsCount;
         this.guessedWordsCount = 0; // Лічильник відгаданих слів
         this.guessedWordsCounterElement = document.getElementById('guessed-words-counter');
         this.updateGuessedWordsCounter();
@@ -17,7 +18,7 @@ class GuessedWords {
     }
 
     updateGuessedWordsCounter() {
-        this.guessedWordsCounterElement.textContent = this.guessedWordsCount;
+        this.guessedWordsCounterElement.textContent = `${this.guessedWordsCount} з ${this.wordsCount}`;
     }
 }
 

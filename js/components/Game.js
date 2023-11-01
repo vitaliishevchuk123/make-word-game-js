@@ -11,7 +11,7 @@ class Game {
         this.gameTimer = new GameTimer();
         this.hintBox = new HintBox(this.gameTimer);
         this.modal = new Modal(this.gameTimer);
-        this.guessedWords = new GuessedWords();
+        this.guessedWords = new GuessedWords(this.words.length);
         this.lettersContainer = document.querySelector('.letters');
         this.resetGame = document.querySelector('#reset-game');
         this.audioGameStart = new Audio("audio/game-start.mp3");

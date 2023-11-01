@@ -589,12 +589,12 @@ body {
 }
 .icons-box__info {
   display: flex;
-  width: 50%;
+  width: 70%;
 }
 .icons-box__control {
   display: flex;
   justify-content: flex-end;
-  width: 50%;
+  width: 30%;
 }
 .icons-box__item {
   margin-right: 1em;
@@ -675,13 +675,7 @@ body {
     width: 100%;
   }
   .main .letters__item {
-    font-size: 24px;
-  }
-  .icons-box__info {
-    width: 60%;
-  }
-  .icons-box__control {
-    width: 40%;
+    font-size: 24p;
   }
 }
 
